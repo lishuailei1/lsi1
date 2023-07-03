@@ -2,39 +2,46 @@
   <div>
     <Category :scene="scene"></Category>
     <el-card style="margin: 10px 0">
-      <el-button type="primary" icon="Plus" :disabled="categoryStore.c3Id?false:true">添加SPU</el-button>
-      <el-table border style="margin: 10px 0" :data="records">
-        <el-table-column label="序号" type="index" width="80px" align="center"></el-table-column>
-        <el-table-column prop="spuName" label="SPU名称" align="center"></el-table-column>
-        <el-table-column prop="description" label="SPU描述" align="center" show-overflow-tooltip></el-table-column>
-        <el-table-column label="SPU操作" align="center">
-          <template #="{row,$index}">
-            <el-button type="primary" icon="Plus" title="添加SKU"></el-button>
-            <el-button type="warning" icon="Edit" title="修改SPU"></el-button>
-            <el-button type="info" icon="View" title="查看SKU列表"></el-button>
-            <el-button type="danger" icon="Delete" title="删除SPU"></el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-          v-model:current-page="pageNum"
-          v-model:page-size="pageSize"
-          :page-sizes="[5, 10, 15, 20]"
-          :background="true"
-          layout="layout=prev,pager,next,jumper,->,sizes,total "
-          :total="total"
-          @current-change="getHasSpu"
-          @size-change="changeSize"
-      />
+      <div v-show="scene==0">
+        <el-button :disabled="categoryStore.c3Id?false:true" icon="Plus" type="primary">添加SPU</el-button>
+        <el-table :data="records" border style="margin: 10px 0">
+          <el-table-column align="center" label="序号" type="index" width="80px"></el-table-column>
+          <el-table-column align="center" label="SPU名称" prop="spuName"></el-table-column>
+          <el-table-column align="center" label="SPU描述" prop="description" show-overflow-tooltip></el-table-column>
+          <el-table-column align="center" label="SPU操作">
+            <template #="{row,$index}">
+              <el-button icon="Plus" title="添加SKU" type="primary" @click="addSpu"></el-button>
+              <el-button icon="Edit" title="修改SPU" type="warning" @click="updateSpu"></el-button>
+              <el-button icon="View" title="查看SKU列表" type="info"></el-button>
+              <el-button icon="Delete" title="删除SPU" type="danger"></el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-pagination
+            v-model:current-page="pageNum"
+            v-model:page-size="pageSize"
+            :background="true"
+            :page-sizes="[5, 10, 15, 20]"
+            :total="total"
+            layout="layout=prev,pager,next,jumper,->,sizes,total "
+            @current-change="getHasSpu"
+            @size-change="changeSize"
+        />
+      </div>
+      <SpuForm v-show="scene==1" @changeScene="changeScene"></SpuForm>
+      <SkuForm v-show="scene==2"></SkuForm>
     </el-card>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import SpuForm from './spuForm.vue'
+import SkuForm from './skuForm.vue'
 import {ref, watch} from "vue";
 import useCategoryStore from "@/store/modules/category";
 import {reqHasSpu} from "@/api/product/spu";
-import type {HasSpuResponseData,Records} from '@/api/product/spu/type'
+import type {HasSpuResponseData, Records} from '@/api/product/spu/type'
+
 const categoryStore = useCategoryStore()
 const scene = ref<number>(0)
 const pageNum = ref<number>(1)  //分页器默认页码
@@ -42,24 +49,36 @@ const pageSize = ref<number>(5)  //每页展示数据
 const records = ref<Records>([])  //存储已有spu数据
 const total = ref<number>(0)
 //监听三级分类id的变化
-watch(()=>categoryStore.c3Id,() => {
-  if(!categoryStore.c3Id) return
+watch(() => categoryStore.c3Id, () => {
+  if (!categoryStore.c3Id) return
   getHasSpu()
 })
 //获取三级分类下的spu
-const getHasSpu = async(pages=1) =>{
-  pageNum.value=pages
-  const res:HasSpuResponseData = await reqHasSpu(pageNum.value,pageSize.value,categoryStore.c3Id)
-  if(res.code == 200){
-    records.value=res.data.records
-    total.value=res.data.total
+const getHasSpu = async (pages = 1) => {
+  pageNum.value = pages
+  const res: HasSpuResponseData = await reqHasSpu(pageNum.value, pageSize.value, categoryStore.c3Id)
+  if (res.code === 200) {
+    records.value = res.data.records
+    total.value = res.data.total
   }
 }
 //分页器下拉菜单
-const changeSize =() =>{
+const changeSize = () => {
   getHasSpu()
 }
+//添加sup
+const addSpu = () => {
+  scene.value = 1
+}
+//修改spu
+const updateSpu =()=>{
+  scene.value = 1
+}
+//子组件绑定自定义事件
+const changeScene = (num: number) => {
+  scene.value = num
+}
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
