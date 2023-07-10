@@ -5,10 +5,12 @@ export interface ResponseData{
 }
 //定义sku对象的ts类型
 export interface Attr{
+    id?:number
     attrId: number|string;
     valueId: number|string;
 }
 export interface saleAttr{
+    id?:number
     saleAttrId: number|string;
     saleAttrValueId: number|string;
 }
@@ -23,6 +25,8 @@ export interface SkuData{
     skuAttrValueList?: Attr[]
     skuSaleAttrValueList?:saleAttr[]
     skuDefaultImg: string;
+    isSale?:number
+    id?:number
 }
 //获取sku返回的数据ts类型
 export interface SkuResponseData extends ResponseData{
@@ -39,4 +43,9 @@ export interface SkuResponseData extends ResponseData{
         "searchCount": boolean,
         "pages": number
     }
+}
+
+//获取sku商品详情接口的ts类型
+export interface SkuInfoData extends ResponseData{
+    data:SkuData
 }
