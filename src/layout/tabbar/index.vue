@@ -1,4 +1,3 @@
-
 <template>
   <div class="tabbar">
     <div class="tabbar_left">
@@ -10,25 +9,27 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import Breadcrumb from './breadcrumb/index.vue'
 import Setting from './setting/index.vue'
 
 </script>
 
-<style scoped lang="scss">
-.tabbar{
+<style lang="scss" scoped>
+.tabbar {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image:linear-gradient(to right, #edcbf5, #dd98f5, #edcbf5) ;
-  .tabbar_left{
+  //background-image: linear-gradient(to right, #edcbf5, #dd98f5, #edcbf5);
+
+  .tabbar_left {
     display: flex;
     margin-left: 20px;
   }
-  .tabbar_right{
+
+  .tabbar_right {
     display: flex;
   }
 }

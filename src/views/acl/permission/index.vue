@@ -10,7 +10,11 @@
         </el-button>
         <el-button :disabled="row.level==1?true:false" size="small" type="warning" @click="updatePermission(row)">编辑
         </el-button>
-        <el-button :disabled="row.level==1?true:false" size="small" type="danger" @click="deletePermission(row.id)">删除</el-button>
+        <el-popconfirm title="确定删除吗?" @confirm="deletePermission(row.id)">
+          <template #reference>
+            <el-button :disabled="row.level==1?true:false" size="small" type="danger" >删除</el-button>
+          </template>
+        </el-popconfirm>
       </template>
     </el-table-column>
   </el-table>
@@ -89,9 +93,15 @@ const save = async() =>{
 }
 //删除按钮回调
 const deletePermission = async (id:number) => {
-  const res = await reqDeleteMenu(id)
-  console.log(res)
-  await getHasPermission()
+  const res:any = await reqDeleteMenu(id)
+  if(res.code==200){
+    ElMessage({
+      type:'success',
+      message:'删除成功'
+    })
+    await getHasPermission()
+  }
+
 }
 </script>
 

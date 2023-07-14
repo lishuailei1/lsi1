@@ -40,11 +40,11 @@
 
 <script setup lang="ts">
 import {useRouter} from "vue-router";
-let router = useRouter()
+  let $router = useRouter()
 // 获取父组件传过来的全部路由
 defineProps(['menuList'])
 const goRoute = (vc:any) =>{
-  router.push(vc.index)
+  $router.push(vc.index)
 }
 </script>
 <script lang="ts">

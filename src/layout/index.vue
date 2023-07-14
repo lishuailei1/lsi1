@@ -7,7 +7,7 @@
 <!--    展示菜单-->
       <el-scrollbar  class="scrollbar">
         <el-menu :default-active="route.path"
-                  style="border-right: none" background-color="#ffffff" text-color="#303133"
+                  style="border-right: none"
                   :collapse="LayOutSettingStore.fold?true:false"
                   :collapse-transition="false"
                  >
@@ -50,8 +50,8 @@ $base-menu-min-width:50px;
   .layout_slider{
     width:$base-menu-width;
     height: 100vh;
-    color: #fff;
-    background-color: #fff;
+    //color: #fff;
+    //background-color:#8c939d;
     transition: all .3s;
     .scrollbar{
       width: 100%;
@@ -82,7 +82,7 @@ $base-menu-min-width:50px;
     height: calc(100vh - $base-tabbar-height);
     padding: 20px;
     overflow: auto;
-    background-color: #fcfcfc;
+    //background-color: #fff;
     transition: all .3s;
     &.fold{
       width:calc(100vw - $base-menu-min-width);

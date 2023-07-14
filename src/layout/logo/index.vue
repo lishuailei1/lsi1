@@ -17,7 +17,7 @@ $base-logo-title-fontSize:20px;
   align-items: center;
   width: 100%;
   height: $base-menu-logo-height;
-  color: #333;
+  //color: #333;
   padding:0 10px;
   img{
     width: 35px;

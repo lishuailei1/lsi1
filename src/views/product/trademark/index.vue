@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="box-card">
-      <el-button icon="Plus" size="default" type="primary" @click="addTradeMark">添加品牌</el-button>
+      <el-button icon="Plus" size="default" type="primary" @click="addTradeMark" v-has="`btn.Trademark.add`">添加品牌</el-button>
       <el-table :data="trademarkArr" border style="width: 100%;margin: 10px 0">
         <el-table-column align="center" label="序号" type="index" width="100"/>
         <el-table-column align="center" label="品牌名称" prop="tmName"/>
@@ -12,7 +12,7 @@
         </el-table-column>
         <el-table-column align="center" label="品牌操作">
           <template #="{row,$index}">
-            <el-button icon="Edit" type="warning" @click="updateTradeMark(row)"></el-button>
+            <el-button icon="Edit" type="warning" @click="updateTradeMark(row)" ></el-button>
             <el-popconfirm :title="`确定要删除${row.tmName}?`" icon="Delete" width="300px"
                            @confirm="removeTradeMark(row.id) ">
               <template #reference>
@@ -72,7 +72,8 @@ import {reqTradeMark, reqAddOrUpdataTradeMark, reqDeleteTradeMark} from '@/api/p
 import type {Records, TradeMarkResponseData, TradeMark} from "../../../api/product/trademark/type";
 // import type {UploadProps} from 'element-plus'
 import {ElMessage, UploadProps, formEmits} from "element-plus";
-
+// import useUserStore from "@/store/modules/user.ts";
+// const userStore = useUserStore()
 const pageNum = ref<number>(1)  //分页器当前页码
 const limit = ref<number>(5)  //分页器每页多少条数据
 const total = ref<number>(0) //储存已有数据总数

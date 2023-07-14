@@ -17,4 +17,4 @@ export const reqAddOrUpdateMenu = (data:MenuParams) =>{
     }
 }
 //删除菜单
-export const reqDeleteMenu = (id:number) =>request.delete(Api.DELETEMENU_URL+id)
+    export const reqDeleteMenu = (id:number) =>request.delete(Api.DELETEMENU_URL+id)

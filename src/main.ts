@@ -11,6 +11,9 @@ import globalComponent from './components'
 import router from './router'
 import pinia from './store'
 import './permisstons'
+import 'element-plus/theme-chalk/dark/css-vars.css'  //暗黑模式样式
+import {isHasButton} from "@/directive/has";  //全局自定义指令
+
 const app = createApp(App)
 app.use(router)
 app.use(pinia);
@@ -20,3 +23,4 @@ app.use(ElementPlus,{
 // 安装自定义插件
 app.use(globalComponent)
 app.mount('#app')
+isHasButton(app);

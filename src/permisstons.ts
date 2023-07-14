@@ -21,13 +21,13 @@ router.beforeEach(async (to: any, from: any, next: any) => {
         }else {
             //登录成功访问其他路由，排除login
             if(username){  //有用户信息  放行
-                next()
+                next(   )
             }else {
                 //没有用户信息，在守卫里发送请求获取用户信息再放行
                 try {
                     //发请求，获取到用户信息
                     await userStore.userInfo()
-                    next()  //放行
+                    next({...to})  //放行
                 }catch (error){
                     //token过期，获取不到用户信息 或 用户手动修改本地存储token
                     await userStore.userLogOut()
